@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package controller;
+
+service Controller {
+  // Команда listen — включает приём
+  rpc Listen(Empty) returns (Response);
+
+  // Передача JSON-модели
+  rpc SendJson(JsonMessage) returns (Response);
+
+  // Команда run
+  rpc Run(Empty) returns (Response);
+}
+
+// Пустое сообщение
+message Empty {}
+
+message JsonMessage {
+  bytes json_bytes = 1; // или string json = 1; если хочешь передавать как строку
+}
+
+message Response {
+  string message = 1;
+}

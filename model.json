@@ -1,0 +1,97 @@
+{
+    "stances": [
+        {
+            "name": "0",
+            "formulas": [
+                {"result": "x","action": "set","operand1": "0.0"},
+                {"result": "y","action": "set","operand1": "0.0"},
+                {"result": "time","action": "set","operand1": "0.0"}
+            ],
+            "transitions": [
+                {"to": "1"}
+            ]
+        },
+        {
+            "name": "1",
+            "formulas": [
+                {"result": "time","action": "add","operand1": "time","operand2": "1.0"},
+                {"result": "x","action": "add","operand1": "x","operand2": "1"},
+                {"result": "res1","action": "multiply","operand1": "x","operand2": "x"},
+                {"result": "res2","action": "add","operand1": "res1","operand2": "1"},
+                {"result": "y","action": "f","operand1": "res2"}
+            ],
+            "transitions": [
+                {"to": "2",
+                    "conditions": [
+                        {"result": "log_res1","action": "greater_equal","operand1": "x","operand2": "5.0"}
+                    ]}
+            ]
+        },
+        {
+            "name": "2",
+            "formulas": [
+                {
+                    "result": "time",
+                    "action": "add",
+                    "operand1": "time",
+                    "operand2": "1.0"
+                },
+                {
+                    "result": "y",
+                    "action": "add",
+                    "operand1": "y",
+                    "operand2": "1.0"
+                }
+            ],
+            "transitions": [
+                {
+                    "to": "3",
+                    "conditions": [
+                        {
+                            "result": "log_res1",
+                            "action": "mod",
+                            "operand1": "time",
+                            "operand2": "5.0"
+                        },
+                        {
+                            "result": "log_res2",
+                            "action": "equals",
+                            "operand1": "log_res1",
+                            "operand2": "0.0"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "3",
+            "formulas": [
+                {
+                    "result": "time",
+                    "action": "add",
+                    "operand1": "time",
+                    "operand2": "1.0"
+                },
+                {
+                    "result": "x",
+                    "action": "subtract",
+                    "operand1": "x",
+                    "operand2": "1.0"
+                }
+            ],
+            "transitions": [
+                {
+                    "to": "1",
+                    "conditions": [
+                        {
+                            "result": "log_res1",
+                            "action": "less_equal",
+                            "operand1": "x",
+                            "operand2": "0.0"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
